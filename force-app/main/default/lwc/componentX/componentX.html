@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Component X">
+        <lightning-input type="text" label="Enter Value" value={inputValue} onchange={handleInputChange}>
+        </lightning-input>
+
+        <lightning-button label="Submit" variant="brand" onclick={handleSubmit}>
+        </lightning-button>
+
+        <c-component-y received-value={submittedValue}></c-component-y>
+    </lightning-card>
+</template>

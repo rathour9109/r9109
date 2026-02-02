@@ -1,0 +1,44 @@
+<template>
+    <div class="firstDiv" style="width: 890px;">
+        <h1 class="header" style="margin-bottom: 8px;font-size: 18px;"> <strong>Account Datatable</strong></h1>
+
+        <div class="dataTable" style="width:800px; margin-top: 60px;">
+            <template if:true={accList}>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered">
+                    <thead>
+                        <tr>
+                            <th>Account Name</th>
+                            <th>Type</th>
+                            <th>Transaction #</th>
+                            <th>Debit</th>
+                            <th>Credit</th>
+                            <th>Roling Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={accList} for:item="account">
+                            <tr key={account.Id}>
+                                <td class="account.name" style="width: 35% !important;height: 45px;">
+                                    <div class="icon" style="display: inline;margin-left: -6px;padding: 6px;">
+                                        <lightning-icon icon-name="standard:account" size="small" alternative-text="Account Icon"></lightning-icon>
+                                    </div>
+                                    {account.Name}
+                                </td>
+                                <td class="account.Type__c" style="width: 15% !important;height: 45px;"> {account.Type__c}</td>
+                                <td class="account.Transaction__c" style="width: 35% !important;height: 45px;"> {account.Transaction__c}</td>
+                                <td class="account.Debit__c" style="width: 20% !important;height: 45px;"> {account.Debit__c}</td>
+                                <td class="account.Credit__c" style="width: 20% !important;height: 45px;"> {account.Credit__c}</td>
+                                <td class="account.Rolling_Balance__c" style="width: 20% !important;height: 45px;"> {account.Rolling_Balance__c}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+
+            </template>
+        </div>
+
+        <template if:true={error}>
+            {error}
+        </template>
+    </div>
+</template>

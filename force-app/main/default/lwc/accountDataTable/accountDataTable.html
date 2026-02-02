@@ -1,0 +1,40 @@
+<template>
+    <lightning-card title="Account Data Table with Pagination" icon-name="standard:account">
+
+        <div class="slds-p-around_small">
+            <lightning-input
+                type="search"
+                label="Search Accounts by Name"
+                value={searchKey}
+                onchange={handleSearch}
+                placeholder="Search by Account Name...">
+            </lightning-input>
+        </div>
+
+        <div class="slds-p-horizontal_small">
+            <lightning-datatable
+                key-field="Id"
+                data={accounts}
+                columns={columns}
+                hide-checkbox-column>
+            </lightning-datatable>
+        </div>
+
+        <div class="slds-m-around_medium slds-text-align_center">
+            <div class="slds-m-bottom_small">
+                <strong>{pageLabel}</strong>
+            </div>
+            <lightning-button
+                label="Previous"
+                onclick={handlePrevious}
+                disabled={disablePrev}>
+            </lightning-button>
+            <lightning-button
+                class="slds-m-left_small"
+                label="Next"
+                onclick={handleNext}
+                disabled={disableNext}>
+            </lightning-button>
+        </div>
+    </lightning-card>
+</template>

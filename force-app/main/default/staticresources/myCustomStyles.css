@@ -1,0 +1,7 @@
+.desktop>.navexDesktopLayoutContainer>div>.layoutContent>.slds-global-header_container{display:none;}
+
+.desktop>.navexDesktopLayoutContainer>div>.layoutContent>.navexStandardManager>.oneAppNavContainer{display:none;}
+
+.oneCenterStage>.maincontent>.contentArea>.slds-brand-band_cover{padding:0;}
+
+.windowViewMode-normal{margin-top:-6rem;}

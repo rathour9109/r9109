@@ -1,0 +1,32 @@
+<template>
+    <div class="cell">
+        <div class="india" style="max-width: 5%; width: 50px;">
+            <img src={IndiaFlag} alt="India Flag" onclick={handleImageClick} data-type="india">
+        </div>
+        <div class="russia" style="max-width: 5%; width: 50px; margin-left: 51px; margin-top: -49px;">
+            <img src={RussiaFlag} alt="Russia Flag" onclick={handleImageClick} data-type="russia">
+        </div>
+        <div class="us" style="max-width: 5%; width: 50px; margin-left: 102px; margin-top: -49px;">
+            <img src={UsFlag} alt="Us Flag" onclick={handleImageClick} data-type="us">
+        </div>
+        <div class="china" style="max-width: 5%; width: 50px; margin-left: 153px; margin-top: -49px;">
+            <img src={ChinaFlag} alt="China Flag" onclick={handleImageClick} data-type="china">
+        </div>
+    </div>
+
+    <template if:true={showModal}>
+        <div class="custom-backdrop">
+            <div class="custom-modal">
+                <header class="modal-header">
+                    <h2>{modalTitle}</h2>
+                </header>
+                <div class="modal-body">
+                    <p>You selected the <strong>{selectedType}</strong> flag. Type Number is <strong>{selectedTypeNumber}</strong>.</p>
+                </div>
+                <footer class="modal-footer">
+                    <button onclick={handleCloseModal}>Close</button>
+                </footer>
+            </div>
+        </div>
+    </template>
+</template>

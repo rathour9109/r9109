@@ -1,0 +1,68 @@
+<template>
+    <!-- Button -->
+    <lightning-card title="Account Form">
+        <lightning-button label="Account Form" variant="brand" onclick={openModal}>
+        </lightning-button>
+    </lightning-card>
+
+    <!-- Modal -->
+    <template if:true={isModalOpen}>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title">Account Form</h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+
+                    <lightning-input type="search" label="Search Account" value={searchKey}
+                        onchange={handleSearchChange}>
+                    </lightning-input>
+
+                    <template if:true={accounts}>
+                        <lightning-datatable key-field="Id" data={accounts} columns={columns}
+                            onrowselection={handleRowSelection}>
+                        </lightning-datatable>
+                    </template>
+
+                    <div class="slds-m-top_medium">
+                        <lightning-input data-field="Name" label="Name" value={name} onchange={handleInputChange}>
+                        </lightning-input>
+
+                        <lightning-combobox data-field="Rating" label="Rating" value={rating} options={ratingOptions}
+                            onchange={handleInputChange}>
+                        </lightning-combobox>
+
+                        <lightning-input data-field="Phone" label="Phone" value={phone} onchange={handleInputChange}>
+                        </lightning-input>
+
+                        <lightning-combobox data-field="SLA__c" label="SLA" value={sla} options={slaOptions}
+                            onchange={handleInputChange}>
+                        </lightning-combobox>
+                    </div>
+                </div>
+
+
+                <footer class="slds-modal__footer" style="gap: 3px;display: flex;justify-content: end;align-items: center;">
+                    <lightning-button label="Create" variant="brand" onclick={handleCreate} disabled={hasSelection}>
+                    </lightning-button>
+
+                    <lightning-button label="Update" variant="brand" onclick={handleUpdate} disabled={noSelection}>
+                    </lightning-button>
+
+                    <lightning-button label="Delete" variant="destructive" onclick={handleDelete} disabled={noSelection}>
+                    </lightning-button>
+
+                    <lightning-button label="Reset" onclick={handleReset}>
+                    </lightning-button>
+
+                    <lightning-button label="Cancel" onclick={closeModal}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+    </template>
+</template>

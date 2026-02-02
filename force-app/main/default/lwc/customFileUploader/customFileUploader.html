@@ -1,0 +1,61 @@
+<template>
+    <lightning-card title="Custom Chunk File Upload">
+        <div class="slds-m-bottom_small">
+            <lightning-input
+                type="file"
+                multiple
+                label="Upload Files"
+                onchange={handleFileChange}>
+            </lightning-input>
+
+            <lightning-button
+                label="Submit"
+                variant="brand"
+                class="slds-m-top_small slds-m-right_small"
+                onclick={startUpload}>
+            </lightning-button>
+
+            <lightning-button
+                label="Clear All"
+                variant="neutral"
+                class="slds-m-top_small"
+                onclick={clearAllFiles}>
+            </lightning-button>
+        </div>
+
+        <template for:each={fileItems} for:item="item">
+            <div key={item.uploadId} class="slds-box slds-m-top_small">
+                <p><strong>{item.file.name}</strong></p>
+
+                <template if:true={item.previewUrl}>
+                    <img src={item.previewUrl} width="120" />
+                </template>
+
+                <lightning-progress-bar
+                    value={item.progress}
+                    size="small">
+                </lightning-progress-bar>
+
+                <p>Status: {item.status}</p>
+
+                <template if:true={item.isUploading}>
+                    <lightning-button
+                        label="Cancel"
+                        variant="destructive"
+                        data-id={item.uploadId}
+                        onclick={cancelFile}>
+                    </lightning-button>
+                </template>
+
+                <template if:true={item.isError}>
+                    <lightning-button
+                        label="Retry"
+                        variant="brand"
+                        data-id={item.uploadId}
+                        onclick={retryFile}>
+                    </lightning-button>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,32 @@
+<template>
+    <lightning-quick-action-panel header="Create New Opportunity">
+        <div class="slds-grid slds-wrap slds-gutter">
+
+            <template if:true={recordId}>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <lightning-input label="Contact Name" value={contactName} disabled></lightning-input>
+                </div>
+            </template>
+
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                <lightning-input label="Opportunity Name" value={opportunityName} onchange={handleChange}
+                    data-id="opportunityName" required></lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                <lightning-combobox label="Stage" value={stage} options={stageOptions}
+                    onchange={handleChange} data-id="stage" required></lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                <lightning-input type="date" label="Close Date" value={closeDate} onchange={handleChange}
+                    data-id="closeDate" required></lightning-input>
+            </div>
+            
+        </div>
+
+        <div class="slds-m-top_medium">
+            <lightning-button label="Submit" variant="brand" onclick={handleSubmit}>
+            </lightning-button>
+        </div>
+
+    </lightning-quick-action-panel>
+</template>

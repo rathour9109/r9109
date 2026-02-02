@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Salesforce WebXR AR (model-viewer)</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif; margin:0; padding:0;
+      display:flex; flex-direction:column; height:100vh;
+    }
+    header { padding:12px; background:#0b5db7; color:white; }
+    main { flex:1; display:flex; align-items:center; justify-content:center; padding:12px; }
+    model-viewer {
+      width:100%; max-width:900px; height:80vh;
+      border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.15);
+    }
+    .note { max-width:900px; margin:12px auto; font-size:14px; color:#333; }
+    .actions { max-width:900px; margin:12px auto; display:flex; gap:8px; }
+    button {
+      padding:8px 12px; border-radius:8px; border:none;
+      background:#0b5db7; color:white; cursor:pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <strong>Salesforce AR — model-viewer (WebXR + Quick Look fallback)</strong>
+  </header>
+
+  <main>
+    <model-viewer id="mv"
+      src="assets/model.glb"
+      ios-src="assets/model.usdz"
+      alt="AR model"
+      ar
+      ar-modes="webxr scene-viewer quick-look"
+      camera-controls
+      shadow-intensity="1"
+      exposure="1"
+      poster="assets/poster.png"
+      style="background: linear-gradient(180deg,#f7fbff,#eef6ff);">
+    </model-viewer>
+  </main>
+
+  <div class="note">
+    Android: WebXR or Scene Viewer • iOS: Quick Look (USDZ)
+  </div>
+
+  <div class="actions">
+    <button id="open-ar">Open AR</button>
+    <button id="open-in-new">Open in new tab</button>
+  </div>
+
+  <script>
+    const mv = document.getElementById('mv');
+
+    document.getElementById('open-ar').addEventListener('click', async () => {
+      if (mv.activateAR) {
+        try { await mv.activateAR(); }
+        catch (e) { alert('AR activation failed: ' + e); }
+      } else {
+        alert('AR is not available on this browser.');
+      }
+    });
+
+    document.getElementById('open-in-new').addEventListener('click', () => {
+      window.open(window.location.href, '_blank');
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<template>
+    <lightning-card title="Account Creation" icon-name="standard:account">
+        <div class="div_header">
+            <table class="slds-table slds-table_bordered">
+                <thead>
+                    <tr>
+                        <th>Nr.</th>
+                        <th>Account Name</th>
+                        <th>Website</th>
+                        <th>Phone</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={numberedAccounts} for:item="acc">
+                        <tr key={acc.id}>
+                            <td>
+                                <div class="div1" style="margin-top: -10px;">
+                                    {acc.rowNumber}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="div2" style="margin-top:-17px;">
+                                    <lightning-input type="text" value={acc.name} onchange={handleInputChange}
+                                        data-id={acc.id} data-field="name"></lightning-input>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="div3" style="margin-top:-17px;">
+                                    <lightning-input type="text" value={acc.website} onchange={handleInputChange}
+                                        data-id={acc.id} data-field="website"></lightning-input>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="div4" style="margin-top:-17px;">
+                                    <lightning-input type="text" value={acc.phone} onchange={handleInputChange}
+                                        data-id={acc.id} data-field="phone"></lightning-input>
+                                </div>
+                            </td>
+                            <td class="del icon" style="padding-top: 5px;">
+                                <lightning-button-icon icon-name="utility:delete" alternative-text="Delete"
+                                    onclick={deleteRow} data-id={acc.no}></lightning-button-icon>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+
+            <div class="slds-m-top_medium" style="padding-inline: 21px;">
+                <lightning-button icon-name="utility:delete" label="Delete All Rows" variant="destructive"
+                    onclick={deleteAllRows}></lightning-button>
+                <lightning-button icon-name="utility:add" label="Add Row" class="slds-m-left_small"
+                    onclick={addRow}></lightning-button>
+            </div>
+
+            <div class="div_footer" style="margin-top: 15px;margin-bottom: -12px;">
+                <div style="background: #f3f3f3; padding: 15px; text-align: right; border-top: 2px solid #d8dde6;">
+                    <lightning-button icon-name='action:follow' label="Create Accounts" variant="brand"
+                        class="slds-m-left_small" onclick={handleCreateAccount}></lightning-button>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

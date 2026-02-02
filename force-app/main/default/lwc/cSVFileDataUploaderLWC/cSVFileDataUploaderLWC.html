@@ -1,0 +1,34 @@
+<template>
+    <!-- loader -->
+    <div if:true={showSpinner}>
+        <lightning-spinner variant="brand" alternative-text="Uploading......">
+        </lightning-spinner>
+    </div>
+
+    <lightning-card title="Upload CSV File">
+        <div class="slds-p-around_small">
+            <div>
+                <lightning-input label="" name="file uploader" onchange={handleFilesChange} type="file" multiple>
+                </lightning-input>
+            </div>
+            <br />
+            <div class="slds-text-body_small slds-text-color_error">{fileName}
+            </div><br />
+            <div>
+                <lightning-button class="slds-m-top--medium" label={UploadFile} onclick={handleSave} variant="brand"
+                    disabled={isTrue}></lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+    <br /><br />
+    <template if:true={data}>
+        <lightning-card title="Accounts" icon-name="standard:account">
+            <div style="width: auto;">
+                <template if:true={data}>
+                    <lightning-datatable data={data} columns={columns} key-field="id">
+                    </lightning-datatable>
+                </template>
+            </div>
+        </lightning-card>
+    </template>
+</template>

@@ -1,0 +1,7 @@
+<template>
+    <lightning-button label="Show Viewer" onclick={toggle}></lightning-button>
+
+    <template if:true={showViewer}>
+        <c-webxr-viewer></c-webxr-viewer>
+    </template>
+</template>

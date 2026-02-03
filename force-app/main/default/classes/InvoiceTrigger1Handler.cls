@@ -1,48 +1,56 @@
 public class InvoiceTrigger1Handler {
-	public static void invoiceMethod(List<Invoice__c> newInvoices, Map<Id,Invoice__c> oldInvoicesMap){
-        Set<Id>accIds = new Set<Id>();
-        
-        Boolean isInsert = Trigger.isInsert;
-        Boolean isUpdate = Trigger.isUpdate;
-        Boolean isDelete = Trigger.isDelete;
+
+    public static void invoiceMethod(List<Invoice__c> newInvoices,Map<Id, Invoice__c> oldInvoicesMap) {
+
+        Set<Id> accIds = new Set<Id>();
+
+        Boolean isInsert   = Trigger.isInsert;
+        Boolean isUpdate   = Trigger.isUpdate;
+        Boolean isDelete   = Trigger.isDelete;
         Boolean isUndelete = Trigger.isUndelete;
-        System.debug('LINE25>>>>'+ 'isInsert>>>' + isInsert + 
+
+        System.debug('LINE12>>>>'+ 'isInsert>>>' + isInsert + 
+                     ', isUpdate>>>' + isUpdate + 
+                     ', isDelete>>>' + isDelete + 
+                     ', isUndelete>>>' + isUndelete);
+
+        if ((isInsert || isUpdate || isUndelete) && newInvoices != null && !newInvoices.isEmpty()) {
+
+            for (Invoice__c inv : newInvoices) {
+
+                Invoice__c oldInv = (isUpdate && oldInvoicesMap != null) ? oldInvoicesMap.get(inv.Id) : null;
+
+                if ( inv.Account__c != null &&
+                    (isInsert || isUndelete || (isUpdate && oldInv != null && oldInv.Overdue_Days__c != inv.Overdue_Days__c))) 
+                    {
+                    accIds.add(inv.Account__c);
+
+                    System.debug('LINE28>>>>'+ 'isInsert>>>' + isInsert + 
                                  ', isUpdate>>>' + isUpdate + 
                                  ', isDelete>>>' + isDelete + 
                                  ', isUndelete>>>' + isUndelete);
-        
-        if (newInvoices != null && !newInvoices.isEmpty()) {
-            for (Invoice__c inv : newInvoices) {
-        
-                if (inv.Account__c != null) {
-                    accIds.add(inv.Account__c);
-                    
-                    System.debug('LINE34>>>>'+ 'isInsert>>>' + isInsert + 
+                }
+
+                if (isUpdate && oldInv != null && oldInv.Account__c != null && oldInv.Account__c != inv.Account__c) {
+
+                    System.debug('LINE36>>>>'+ 'isInsert>>>' + isInsert + 
                                  ', isUpdate>>>' + isUpdate + 
                                  ', isDelete>>>' + isDelete + 
                                  ', isUndelete>>>' + isUndelete);
 
-                }
-        
-                if (oldInvoicesMap != null) {
-                    Invoice__c oldInv = oldInvoicesMap.get(inv.Id);
-        
-                    if (oldInv != null &&
-                        oldInv.Account__c != null &&
-                        (oldInv.Account__c != inv.Account__c ||
-                        oldInv.Overdue_Days__c != inv.Overdue_Days__c)) {
-        				
-                        System.debug('LINE45>>>>'+ 'isInsert>>>' + isInsert + 
-                                 ', isUpdate>>>' + isUpdate + 
-                                 ', isDelete>>>' + isDelete + 
-                                 ', isUndelete>>>' + isUndelete);
-                            
-                        accIds.add(oldInv.Account__c);
-                    }
+                    accIds.add(oldInv.Account__c);
                 }
             }
         }
-        
+
+        if (isDelete && oldInvoicesMap != null) {
+            for (Invoice__c oldInv : oldInvoicesMap.values()) {
+                if (oldInv.Account__c != null) {
+                    accIds.add(oldInv.Account__c);
+                }
+            }
+        }
+
         if (accIds.isEmpty()) return;
 
         /*

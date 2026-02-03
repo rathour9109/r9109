@@ -23,7 +23,7 @@ trigger InvoiceTrigger1 on Invoice__c (after insert, after update, after delete,
     if (isDelete) {
         System.debug('Trigger.old>>>' + Trigger.old);
         
-        InvoiceTrigger1Handler.invoiceMethod(Trigger.old, null);
+        InvoiceTrigger1Handler.invoiceMethod(null, Trigger.oldMap);
     }
     System.debug('InvoiceTrigger1---- END ------LINE29');
 }
